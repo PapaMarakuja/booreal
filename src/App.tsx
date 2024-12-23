@@ -33,7 +33,7 @@ export default function App() {
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+  initializeApp(firebaseConfig);
 
   const location = useLocation();
 

@@ -5,7 +5,6 @@ import { AngularIcon } from '../../../components/icons/angular-icon';
 import { ReactIcon } from '../../../components/icons/react-icon';
 import { TailwindIcon } from '../../../components/icons/tailwindIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 

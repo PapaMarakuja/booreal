@@ -10,7 +10,7 @@ export const BentoGrid = ({
   children?: React.ReactNode;
 }) => {
   const controls = useAnimation();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [isAnimated, setIsAnimated] = useState(false);
 
   useEffect(() => {

@@ -36,7 +36,7 @@ const Testimonials: FunctionComponent = () => {
         'Meu site ficou tão **** que até eu não consigo parar de olhar pra ele. Sério, Booreal, vocês fazem milagres... e não, Kyle, você não vai conseguir um site igual ao meu, seu ***!',
       name: 'Eric Cartman',
       designation: 'CEO da DikenBaus',
-      src: '/public/EricCartman.png',
+      src: '/src/assets/EricCartman.png',
     },
   ];
 

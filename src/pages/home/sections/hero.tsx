@@ -2,8 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AnimatedWords from '../../../components/animated-words/animated-words';
 import { Button } from '../../../components/button/button';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { motion } from 'framer-motion';
-import { BackgroundGradientAnimation } from '../../../components/ui/background-gradient-animation';
 
 export default function Hero() {
   const words = [
@@ -51,37 +49,6 @@ export default function Hero() {
                 Atendimento rápido, em horário flexível
               </p>
             </div>
-          </div>
-          <div className='relative hidden rounded-xl w-[300px] h-[300px] mt-4 mb-4 place-items-center isolate'>
-            <motion.div
-              className='absolute -top-20 -left-20 w-60 h-60 bg-primary/20 rounded-sm z-10'
-              initial={{ y: 0 }}
-              animate={{
-                y: [0, -20, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-            <motion.div
-              className='absolute -bottom-10 -right-10 w-20 h-20 bg-accent rounded-full z-30'
-              initial={{ y: 0 }}
-              animate={{
-                y: [0, 20, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-            <img
-              src='/public/booreal.png'
-              alt='Ilustração de desenvolvimento'
-              className='w-full h-auto object-cover rounded-lg shadow-2xl z-20'
-            />
           </div>
         </div>
       </div>

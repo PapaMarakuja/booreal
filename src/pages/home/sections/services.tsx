@@ -39,7 +39,7 @@ export default function Services() {
           </div>
         </>
       ),
-      imgSrc: '/public/booreal.png',
+      imgSrc: '/src/assets/booreal.png',
     },
     {
       title: 'Branding',
@@ -69,7 +69,7 @@ export default function Services() {
           </div>
         </>
       ),
-      imgSrc: '/public/booreal.png',
+      imgSrc: '/src/assets/booreal.png',
     },
   ];
 
@@ -116,7 +116,7 @@ const ServiceCard = ({
 }) => {
   const isOdd = sequence % 2 !== 0;
   const controls = useAnimation();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [isAnimated, setIsAnimated] = useState(false);
   useEffect(() => {
     const handleScroll = () => {

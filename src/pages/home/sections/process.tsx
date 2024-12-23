@@ -4,7 +4,6 @@ import { motion, useAnimation } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheckCircle,
-  faCircle,
   faCode,
   faDraftingCompass,
   faHandshake,
@@ -47,7 +46,7 @@ export default function Process() {
     },
   ];
 
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [isAnimated, setIsAnimated] = useState(false);
   const controls = useAnimation();
 
