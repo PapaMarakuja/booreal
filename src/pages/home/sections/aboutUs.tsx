@@ -7,7 +7,7 @@ const AboutUs = () => {
   ];
 
   // Function to render animation based on title
-  const renderAnimation = (title) => {
+  const renderAnimation = (title: string) => {
     const lowerTitle = title.toLowerCase();
 
     if (lowerTitle.includes('desenvolvedor') || lowerTitle.includes('full stack')) {
