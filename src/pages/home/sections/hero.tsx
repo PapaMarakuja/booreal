@@ -2,8 +2,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AnimatedWords from '../../../components/animated-words/animated-words';
 import { Button } from '../../../components/button/button';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { useEffect, useState } from 'react';
+import { createWhatsAppUrl } from '../../../utils/utils';
 
 export default function Hero() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleWhatsAppRedirect = () => {
+    window.open(createWhatsAppUrl(), "_blank");
+  };
+
   const words = [
     'Desenvolvimento Web',
     'Landing Pages',
@@ -13,9 +34,8 @@ export default function Hero() {
     'UI/UX',
     'SEO',
   ];
-
   return (
-    <section className='bg-white text-neutral-900 relative'>
+    <section id="hero" className='bg-white text-neutral-900 relative'>
       <div className='absolute inset-0 overflow-hidden'>
         <div className='absolute top-5 left-5 lg:top-20 lg:left-20 w-52 h-52 lg:w-96 lg:h-96 bg-gradient-1 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob1' />
         <div className='absolute top-5 right-5 lg:top-40 lg:right-40 w-60 h-60 lg:w-96 lg:h-96 bg-accent rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob2' />
@@ -41,7 +61,7 @@ export default function Hero() {
               <AnimatedWords words={words} className='w-full text-3xl' />
             </div>
             <div className='relative group'>
-              <Button>
+              <Button onClick={handleWhatsAppRedirect}>
                 <FontAwesomeIcon icon={faWhatsapp} className='mr-2' />
                 Comece seu projeto agora
               </Button>
@@ -51,6 +71,23 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </div>
+      <div className={`hidden md:flex absolute bottom-8 right-8 items-center text-neutral-600 animate-bounce transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'
+        }`}>
+        <span className='text-sm'>Desça para ver mais</span>
+        <svg
+          className="w-4 h-4 ml-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
+        </svg>
       </div>
     </section>
   );

@@ -39,7 +39,7 @@ export default function Services() {
           </div>
         </>
       ),
-      imgSrc: '/src/assets/booreal.png',
+      imgSrc: '/assets/booreal.png',
     },
     {
       title: 'Branding',
@@ -69,14 +69,14 @@ export default function Services() {
           </div>
         </>
       ),
-      imgSrc: '/src/assets/booreal.png',
+      imgSrc: '/assets/booreal.png',
     },
   ];
 
   const words = ['você', 'sua empresa'];
 
   return (
-    <section className='bg-primary'>
+    <section id='services' className='bg-primary'>
       <div className='container py-[100px]'>
         <h1 className='text-4xl text-center font-bold mb-[100px]'>
           O que podemos fazer para

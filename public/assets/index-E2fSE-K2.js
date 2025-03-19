@@ -19361,7 +19361,7 @@ function yk() {
                   transition: { duration: 3, repeat: 1 / 0, ease: 'easeInOut' },
                 }),
                 h.jsx('img', {
-                  src: '/src/assets/booreal.png',
+                  src: '/assets/booreal.png',
                   alt: 'Ilustração de desenvolvimento',
                   className: 'w-full h-auto object-cover rounded-lg shadow-2xl z-20',
                 }),
@@ -19641,7 +19641,7 @@ function Sk() {
             }),
           ],
         }),
-        imgSrc: '/src/assets/booreal.png',
+        imgSrc: '/assets/booreal.png',
       },
       {
         title: 'Branding',
@@ -19689,7 +19689,7 @@ function Sk() {
             }),
           ],
         }),
-        imgSrc: '/src/assets/booreal.png',
+        imgSrc: '/assets/booreal.png',
       },
     ],
     t = ['você', 'sua empresa'];
@@ -20031,7 +20031,7 @@ const rr = ({ upsideDown: e, className: t }) =>
           'Meu site ficou tão **** que até eu não consigo parar de olhar pra ele. Sério, Booreal, vocês fazem milagres... e não, Kyle, você não vai conseguir um site igual ao meu, seu ***!',
         name: 'Eric Cartman',
         designation: 'CEO da DikenBaus',
-        src: '/src/assets/EricCartman.png',
+        src: '/assets/EricCartman.png',
       },
     ];
     return h.jsx('section', {

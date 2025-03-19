@@ -1,4 +1,10 @@
+import { createWhatsAppUrl } from "../../../utils/utils";
+
 export default function Footer() {
+  const handleWhatsAppRedirect = () => {
+    window.open(createWhatsAppUrl(), "_blank");
+  };
+
   return (
     <section className='sticky -z-10 bottom-0 py-[50px] bg-black'>
       <div className='container overflow-hidden'>
@@ -7,13 +13,26 @@ export default function Footer() {
             © 2024 Booreal. Todos os direitos reservados.
           </p>
           <div className='flex gap-4'>
-            <a href='#' className='text-neutral-400 hover:text-primary transition-colors'>
+            <a
+              href='https://www.instagram.com/booreal.lab'
+              target="_blank"
+              rel="noopener noreferrer"
+              className='text-neutral-400 hover:text-primary transition-colors cursor-pointer'
+            >
               Instagram
             </a>
-            <a href='#' className='text-neutral-400 hover:text-primary transition-colors'>
+            <a
+              href='#'
+              target="_blank"
+              rel="noopener noreferrer"
+              className='text-neutral-400 hover:text-primary transition-colors cursor-pointer'
+            >
               LinkedIn
             </a>
-            <a href='#' className='text-neutral-400 hover:text-primary transition-colors'>
+            <a
+              onClick={() => handleWhatsAppRedirect()}
+              className='text-neutral-400 hover:text-primary transition-colors cursor-pointer'
+            >
               WhatsApp
             </a>
           </div>

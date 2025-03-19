@@ -1,21 +1,23 @@
 import { motion } from 'framer-motion';
 import { cn } from '../../lib/utils';
+import { ButtonHTMLAttributes } from 'react';
 
 export const Button = ({
   children,
   className = '',
   theme = 'primary',
+  ...props
 }: {
   children: React.ReactNode;
   className?: string;
   theme?: 'primary' | 'secondary' | 'custom';
-}) => {
+} & ButtonHTMLAttributes<HTMLButtonElement>) => {
   const btnStyles =
     theme === 'primary'
       ? 'bg-primary/10 border-primary/20 text-primary'
       : theme === 'secondary'
-      ? 'bg-gradient-5/10 border-gradient-5/20 text-gradient-5'
-      : '';
+        ? 'bg-gradient-5/10 border-gradient-5/20 text-gradient-5'
+        : '';
   const btnBorder =
     theme === 'primary' ? 'via-primary' : theme === 'secondary' ? 'via-gradient-5' : '';
 
@@ -26,6 +28,7 @@ export const Button = ({
         className,
         btnStyles
       )}
+      {...props}
     >
       <span className='group-hover/modal-btn:translate-y-10 text-center transition duration-300'>
         {children}

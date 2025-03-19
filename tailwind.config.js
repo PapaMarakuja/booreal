@@ -32,6 +32,12 @@ export default {
         blob1: 'blob1 20s infinite',
         blob2: 'blob2 30s infinite',
         blob3: 'blob3 20s infinite',
+        'spin-slow': 'spin 8s linear infinite',
+        'spin-reverse': 'spin-reverse 12s linear infinite',
+        'typing': 'typing 3.5s steps(40, end) infinite',
+        'typewriter': 'typewriter 4s steps(40) 1s infinite normal both',
+        'float': 'float 6s ease-in-out infinite',
+        'float-reverse': 'float-reverse 6s ease-in-out infinite',
       },
       keyframes: {
         blob: {

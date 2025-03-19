@@ -281,37 +281,38 @@ const SkeletonFive = () => {
 const items = [
   {
     title: 'Nossas Competências',
-    description: <span className='text-sm'>Dominando as melhores práticas.</span>,
+    description: <span className='text-sm'>Quebramos as regras, mas dominamos o jogo.</span>,
     header: <SkeletonFour />,
     className: 'md:col-span-2',
     icon: '',
   },
   {
     title: 'Nossa Visão',
-    description: <span className='text-sm'>Ferramentas que transformam.</span>,
+    description: <span className='text-sm'>Ferramentas não fazem milagre, mas a gente faz.</span>,
     header: <SkeletonOne />,
     className: 'md:col-span-1',
     icon: '',
   },
   {
     title: 'Nossa Filosofia',
-    description: <span className='text-sm'>Co-criar para dominar.</span>,
+    description: <span className='text-sm'>Criar sem medo. Dominar sem pedir licença.</span>,
     header: <SkeletonTwo />,
     className: 'md:col-span-1',
     icon: '',
   },
   {
-    title: 'O método',
-    description: <span className='text-sm'>Criatividade com propósito.</span>,
+    title: 'O Método',
+    description: <span className='text-sm'>Criatividade sem frescura, resultado sem enrolação.</span>,
     header: <SkeletonThree />,
     className: 'md:col-span-1',
     icon: '',
   },
   {
-    title: 'A conversão',
-    description: <span className='text-sm'>Transformando cliques em clientes</span>,
+    title: 'A Conversão',
+    description: <span className='text-sm'>Cliques são fáceis. Transformamos em resultados.</span>,
     header: <SkeletonFive />,
     className: 'md:col-span-1',
     icon: '',
   },
 ];
+

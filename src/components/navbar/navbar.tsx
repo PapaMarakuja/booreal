@@ -1,22 +1,21 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 const links = [
   {
     name: 'booreal',
-    path: '/',
-  },
-  {
-    name: 'serviços',
-    path: '/',
+    sectionId: 'hero',
   },
   {
     name: 'sobre',
-    path: '/',
+    sectionId: 'about',
+  },
+  {
+    name: 'serviços',
+    sectionId: 'services',
   },
   {
     name: 'contato',
-    path: '/sobre',
+    sectionId: 'contact',
   },
 ];
 
@@ -33,6 +32,20 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 80; // Adjust this value based on your navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <header>
       <nav
@@ -40,17 +53,15 @@ export default function Navbar() {
           scrolled ? 'my-4 py-4 bg-glass' : 'my-0 py-4'
         }`}
       >
-        {links.map((link, index) => {
-          return (
-            <Link
-              key={index}
-              to={link.path}
-              className='capitalize text-black font-medium text-lg hover:scale-105 transition-all rounded-2xl'
-            >
-              {link.name}
-            </Link>
-          );
-        })}
+        {links.map((link, index) => (
+          <button
+            key={index}
+            onClick={() => scrollToSection(link.sectionId)}
+            className='capitalize text-black font-medium text-lg hover:scale-105 transition-all rounded-2xl'
+          >
+            {link.name}
+          </button>
+        ))}
       </nav>
     </header>
   );

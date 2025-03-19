@@ -4,39 +4,40 @@ import { AnimatedTestimonials } from '../../../components/ui/animated-testimonia
 const Testimonials: FunctionComponent = () => {
   const testimonials = [
     {
-      quote:
-        'O cuidado com os detalhes e as funcionalidades inovadoras transformaram completamente a forma como apresentamos nossos serviços online. Era exatamente o que precisávamos.',
-      name: 'Sheila Karmen Silva',
-      designation: 'Gerente de Recursos Humanos na Empresa Xerecas',
-      src: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      quote: 'A Booreal pegou minha ideia bagunçada e transformou num site que faz minha concorrência suar frio. Só confio nesses lunáticos pra isso.',
+      name: 'Ava Duarte',
+      designation: 'Fundadora da Riot Mode',
+      src: 'assets/testimonial/AvaDuarte.png',
     },
     {
-      quote:
-        'A implementação foi rápida e os resultados superaram nossas expectativas. A flexibilidade do design foi impressionante.',
-      name: 'Maicon Douglas',
-      designation: 'CEO da Maicon Motos',
-      src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      quote: 'Meu site não só vende, ele hipnotiza. Se você ainda tá decidindo se contrata a Booreal... já perdeu tempo demais.',
+      name: 'João Ferreira',
+      designation: 'CEO da Chaos Labs',
+      src: '/assets/testimonial/JoãoFerreira.png',
     },
     {
-      quote:
-        'O site criado pela Booreal melhorou significativamente a percepção da nossa marca. A interface intuitiva foi um diferencial enorme.',
-      name: 'Aisha Vasca',
-      designation: 'CEO da Aisha Manicure e Pedicure',
-      src: 'https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      quote: 'Disseram que era impossível criar um site tão rápido e insano... A Booreal riu na minha cara e entregou o impossível.',
+      name: 'Jhenny Vega Silva',
+      designation: 'Criadora da startup Phantom Hustle',
+      src: '/assets/testimonial/JhennyVegaSilva.png',
     },
     {
-      quote:
-        'Um suporte excepcional e funcionalidades robustas. É raro encontrar uma empresa que entrega tudo o que promete com tanta dedicação.',
-      name: 'Nadia Réia',
-      designation: 'Diretora de Marketing na WEG Vendas',
-      src: 'https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      quote: 'Negócio é o seguinte: um site bom fala por si só. A Booreal fez o meu falar alto. Se você quer algo bem feito, contrate eles. Se quer um site medíocre... boa sorte por aí.',
+      name: 'Leandro Moreira',
+      designation: 'Dono da Moreira Trading Co.',
+      src: '/assets/testimonial/LeandroMoreira.png',
     },
     {
-      quote:
-        'Meu site ficou tão **** que até eu não consigo parar de olhar pra ele. Sério, Booreal, vocês fazem milagres... e não, Kyle, você não vai conseguir um site igual ao meu, seu ***!',
+      quote: 'Queria um site fora do comum, algo que ninguém tivesse visto antes. A Booreal apareceu, quebrou todas as regras e entregou um monstro digital. Resumindo: do jeito que eu gosto.',
+      name: 'Renata Almeida',
+      designation: 'Propietária da Comes e Bebes',
+      src: '/assets/testimonial/RenataAlmeida.png',
+    },
+    {
+      quote: 'Meu site ficou tão **** que até eu não consigo parar de olhar pra ele. Sério, Booreal, vocês fazem milagres... e não, Kyle, você não vai conseguir um site igual ao meu, seu ***!',
       name: 'Eric Cartman',
       designation: 'CEO da DikenBaus',
-      src: '/src/assets/EricCartman.png',
+      src: '/assets/testimonial/ErikCartman.png',
     },
   ];
 
