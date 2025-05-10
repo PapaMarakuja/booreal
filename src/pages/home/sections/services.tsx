@@ -1,6 +1,6 @@
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { FlipWords } from '../../../components/ui/flip-words';
-import { cn, variantsScale, variantsY } from '../../../lib/utils';
+import { cn, booreal } from '../../../lib/utils';
 import { useRef, useState, useEffect } from 'react';
 
 export default function Services() {
@@ -39,7 +39,7 @@ export default function Services() {
           </div>
         </>
       ),
-      imgSrc: '/assets/booreal.png',
+      imgSrc: 'images/booreal.png',
     },
     {
       title: 'Branding',
@@ -69,25 +69,65 @@ export default function Services() {
           </div>
         </>
       ),
-      imgSrc: '/assets/booreal.png',
+      imgSrc: 'images/booreal.png',
     },
   ];
 
   const words = ['você', 'sua empresa'];
+  const [activeService, setActiveService] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimation();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          controls.start('visible');
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, [controls]);
 
   return (
-    <section id='services' className='bg-primary'>
-      <div className='container py-[100px]'>
-        <h1 className='text-4xl text-center font-bold mb-[100px]'>
-          O que podemos fazer para
-          <br />
-          <span className='text-accent hidden md:block'>
-            <FlipWords words={words} duration={5000} />
-          </span>
-          <span className='text-accent md:hidden'>você/sua empresa</span>
-        </h1>
+    <section id='services' className='bg-primary relative overflow-hidden'>
+      {/* Elementos decorativos de fundo */}
+      <div className='absolute inset-0 overflow-hidden opacity-10 pointer-events-none'>
+        <div className='absolute top-10 left-10 w-64 h-64 bg-accent rounded-full mix-blend-screen filter blur-3xl animate-pulse-slow'></div>
+        <div className='absolute bottom-10 right-10 w-80 h-80 bg-primary-light rounded-full mix-blend-screen filter blur-3xl animate-float'></div>
+      </div>
 
-        <div className='grid gap-2'>
+      <div className='container py-[100px] relative z-10' ref={containerRef}>
+        <motion.div
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          variants={booreal.variants.fadeInUp}
+          transition={booreal.transition.softSpring}
+        >
+          <h1 className='text-4xl text-center font-bold mb-4'>
+            O que podemos fazer para
+          </h1>
+          <div className='text-center mb-[80px]'>
+            <span className='text-accent text-4xl hidden md:inline-block'>
+              <FlipWords words={words} duration={5000} />
+            </span>
+            <span className='text-accent text-4xl md:hidden'>você/sua empresa</span>
+          </div>
+        </motion.div>
+
+        <div className='grid gap-8'>
           {services.map((service, i) => (
             <ServiceCard
               key={i}
@@ -95,6 +135,11 @@ export default function Services() {
               text={service.text}
               imgSrc={service.imgSrc}
               sequence={i}
+              isActive={activeService === i}
+              onHover={() => setActiveService(i)}
+              onLeave={() => setActiveService(null)}
+              delay={i * 0.2}
+              isVisible={isVisible}
             />
           ))}
         </div>
@@ -108,79 +153,127 @@ const ServiceCard = ({
   text,
   imgSrc,
   sequence = 1,
+  isActive,
+  onHover,
+  onLeave,
+  delay,
+  isVisible,
 }: {
   title: string;
   text?: React.ReactNode;
   imgSrc?: string;
   sequence?: number;
+  isActive?: boolean;
+  onHover: () => void;
+  onLeave: () => void;
+  delay: number;
+  isVisible: boolean;
 }) => {
   const isOdd = sequence % 2 !== 0;
-  const controls = useAnimation();
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [isAnimated, setIsAnimated] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) {
-        return;
-      }
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-      const elementTop = ref.current.getBoundingClientRect().top;
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
 
-      if (elementTop < window.innerHeight - 100) {
-        setIsAnimated(true);
-        controls.start('visible');
-      }
-    };
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [controls]);
+    setMousePosition({ x, y });
+  };
 
   return (
     <motion.div
-      ref={ref}
-      initial='hidden'
-      animate={isAnimated ? controls : 'hidden'}
-      variants={variantsY}
+      ref={cardRef}
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 }
+      }}
       transition={{
-        duration: 0.5,
-        type: 'spring',
-        damping: 15,
-        stiffness: 100,
+        ...booreal.transition.softSpring,
+        delay
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={onHover}
+      onMouseLeave={() => {
+        onLeave();
+        setMousePosition({ x: 0, y: 0 });
+      }}
+      style={{
+        transform: isActive
+          ? `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * -5}deg)`
+          : 'perspective(1000px) rotateX(0) rotateY(0)',
+        transition: 'transform 0.3s ease'
       }}
       className={cn(
-        'bg-neutral-100 text-black rounded-xl flex items-center content-center min-h-[500px] flex-col md:flex-row',
-        isOdd && 'md:flex-row-reverse'
+        'bg-neutral-100 text-black rounded-xl flex items-center content-center min-h-[500px] flex-col md:flex-row p-2',
+        isOdd && 'md:flex-row-reverse',
+        isActive && 'shadow-2xl shadow-accent/20'
       )}
     >
       <motion.div
-        className='md:w-7/12 p-4 md:px-8 md:py-0'
-        variants={variantsScale}
+        className='md:w-7/12 p-4 md:px-8 md:py-6 relative z-10'
+        variants={booreal.variants.fadeScale}
         transition={{
-          duration: 0.5,
-          delay: isAnimated ? 0.1 : 0,
-          type: 'spring',
-          damping: 12,
-          stiffness: 100,
+          ...booreal.transition.spring,
+          delay: delay + 0.1
         }}
       >
-        <h2 className='text-3xl mb-4 font-medium text-neutral-950'>{title}</h2>
-        <div className='text-neutral-800'>{text}</div>
+        <motion.h2
+          className='text-3xl mb-4 font-medium text-neutral-950 relative inline-block'
+          initial={{ opacity: 1 }}
+          whileHover={{ scale: 1.02 }}
+          transition={booreal.transition.spring}
+        >
+          {title}
+          <motion.div
+            className='absolute -bottom-1 left-0 h-1 bg-primary rounded-full'
+            initial={{ width: 0 }}
+            animate={{ width: isActive ? '100%' : '0%' }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.h2>
+
+        <AnimatePresence>
+          <motion.div
+            className='text-neutral-800'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {text}
+          </motion.div>
+        </AnimatePresence>
       </motion.div>
-      <motion.div className='w-full md:w-5/12 h-full bg-dot-thick-black/20 grid place-items-center transition-all duration-150 hover:bg-dot-thick-black/30'>
-        <div className='p-4 h-full md:w-2/3 md:h-auto md:p-0'>
+
+      <motion.div
+        className='w-full md:w-5/12 h-full bg-dot-thick-black/20 grid place-items-center rounded-lg overflow-hidden relative'
+        variants={booreal.variants.slideInRight}
+        transition={{
+          ...booreal.transition.spring,
+          delay: delay + 0.2
+        }}
+      >
+        <motion.div
+          className='absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent opacity-0'
+          animate={{ opacity: isActive ? 0.5 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+
+        <div className='p-4 h-full md:w-2/3 md:h-auto md:p-0 relative z-10'>
           <motion.img
             className='object-cover rounded-lg max-w-64 md:max-w-full'
             src={imgSrc}
             alt={title}
-            variants={variantsScale}
-            transition={{
-              duration: 0.5,
-              delay: isAnimated ? 0.1 : 0,
-              type: 'spring',
-              damping: 12,
-              stiffness: 100,
+            initial={{ scale: 1 }}
+            animate={{
+              scale: isActive ? 1.05 : 1,
+              rotate: isActive ? mousePosition.x * 2 : 0
             }}
+            transition={{ duration: 0.4 }}
           />
         </div>
       </motion.div>
@@ -190,7 +283,7 @@ const ServiceCard = ({
 
 const CheckIcon = () => {
   return (
-    <svg
+    <motion.svg
       xmlns='http://www.w3.org/2000/svg'
       width='24'
       height='24'
@@ -201,8 +294,15 @@ const CheckIcon = () => {
       strokeLinecap='round'
       strokeLinejoin='round'
       className='lucide lucide-check h-7 w-7 flex-none rounded-full bg-accent p-1 text-black'
+      whileHover={{ scale: 1.2, rotate: 5 }}
+      transition={booreal.transition.spring}
     >
-      <path d='M20 6 9 17l-5-5'></path>
-    </svg>
+      <motion.path
+        d='M20 6 9 17l-5-5'
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      />
+    </motion.svg>
   );
 };

@@ -4,9 +4,11 @@ import { Button } from '../../../components/button/button';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useEffect, useState } from 'react';
 import { createWhatsAppUrl } from '../../../utils/utils';
+import { useSmoothScroll } from '../../../hooks/use-smooth-scroll';
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(true);
+  const { scrollTo } = useSmoothScroll();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +25,10 @@ export default function Hero() {
 
   const handleWhatsAppRedirect = () => {
     window.open(createWhatsAppUrl(), "_blank");
+  };
+
+  const handleScrollDown = () => {
+    scrollTo('about');
   };
 
   const words = [
@@ -43,7 +49,7 @@ export default function Hero() {
         <div className='absolute bottom-5 left-5 lg:bottom-20 lg:left-10 w-64 h-64 lg:w-96 lg:h-96 bg-accent rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slower' />
         <div className='absolute bottom-5 right-5 lg:bottom-20 lg:left-2/3 w-60 h-60 lg:w-96 lg:h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slow' />
       </div>
-      <div className='container h-dvh relative'>
+      <div className='container h-screen relative'>
         <div className='h-full flex items-center justify-center relative z-10 md:justify-around'>
           <div className='grid place-items-center text-center'>
             <div className='relative'>
@@ -74,20 +80,25 @@ export default function Hero() {
       </div>
       <div className={`hidden md:flex absolute bottom-8 right-8 items-center text-neutral-600 animate-bounce transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'
         }`}>
-        <span className='text-sm'>Desça para ver mais</span>
-        <svg
-          className="w-4 h-4 ml-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+        <button
+          onClick={handleScrollDown}
+          className="flex items-center text-sm cursor-pointer"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
+          <span className='text-sm'>Desça para ver mais</span>
+          <svg
+            className="w-4 h-4 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
+        </button>
       </div>
     </section>
   );

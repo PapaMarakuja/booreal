@@ -1,5 +1,5 @@
 // Contact information
-export const WHATSAPP_NUMBER = "55479923732782";
+export const WHATSAPP_NUMBER = "5547992373782";
 export const DEFAULT_WHATSAPP_MESSAGE = "Olá, Booreal! Estou interessado em começar meu projeto agora.";
 
 // Helper function to create WhatsApp URL

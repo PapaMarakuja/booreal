@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { booreal } from '../../lib/utils';
 
 interface AnimatedWordsProps {
   words: string[];
@@ -20,7 +21,7 @@ const AnimatedWords: React.FC<AnimatedWordsProps> = ({
     }, duration * 1000);
 
     return () => clearInterval(interval);
-  }, [words.length]);
+  }, [words.length, duration]);
 
   return (
     <div
@@ -29,10 +30,10 @@ const AnimatedWords: React.FC<AnimatedWordsProps> = ({
       <AnimatePresence mode='wait'>
         <motion.p
           key={currentWordIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
+          transition={booreal.transition.smooth}
           className='absolute text-lg text-neutral-700 lg:text-2xl'
         >
           {words[currentWordIndex]}

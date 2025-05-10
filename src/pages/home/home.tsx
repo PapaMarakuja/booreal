@@ -5,8 +5,8 @@ import Process from './sections/process';
 import Services from './sections/services';
 import Contact from './sections/contact';
 import { Separator } from '../../components/separator/separator';
-import Testimonials from './sections/testimonials';
 import AboutUs from './sections/aboutUs';
+import ResultsSection from './sections/results';
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
         <Separator className='-top-2' />
         <Process />
         <Separator className='-top-[1px]' upsideDown />
-        <Testimonials />
+        <ResultsSection />
         <Separator className='-top-2' />
         <Contact />
       </div>

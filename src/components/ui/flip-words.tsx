@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { cn } from '../../lib/utils';
+import { booreal, cn } from '../../lib/utils';
 
 export const FlipWords = ({
   words,
@@ -37,23 +37,21 @@ export const FlipWords = ({
         initial={{
           opacity: 0,
           y: 10,
+          filter: "blur(8px)",
         }}
         animate={{
           opacity: 1,
           y: 0,
+          filter: "blur(0px)",
         }}
-        transition={{
-          type: 'spring',
-          stiffness: 100,
-          damping: 10,
-        }}
+        transition={booreal.transition.spring}
         exit={{
           opacity: 0,
-          y: -40,
-          x: 40,
-          filter: 'blur(8px)',
-          scale: 2,
-          position: 'absolute',
+          y: -30,
+          x: 20,
+          filter: "blur(8px)",
+          scale: 1.2,
+          position: "absolute",
         }}
         className={cn('z-10 inline-block relative text-left px-2', className)}
         key={currentWord}
@@ -64,8 +62,8 @@ export const FlipWords = ({
             initial={{ opacity: 0, y: 10, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{
-              delay: wordIndex * 0.3,
-              duration: 0.3,
+              ...booreal.transition.smooth,
+              delay: wordIndex * 0.2,
             }}
             className='inline-block whitespace-nowrap'
           >
@@ -75,10 +73,10 @@ export const FlipWords = ({
                 initial={{ opacity: 0, y: 10, filter: 'blur(8px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{
-                  delay: wordIndex * 0.3 + letterIndex * 0.05,
-                  duration: 0.2,
+                  ...booreal.transition.smooth,
+                  delay: wordIndex * 0.2 + letterIndex * 0.03,
                 }}
-                className='inline-block'
+                className='inline-block font-bold'
               >
                 {letter}
               </motion.span>

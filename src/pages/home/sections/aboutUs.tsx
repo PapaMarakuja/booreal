@@ -2,8 +2,6 @@ const AboutUs = () => {
   const team = [
     { name: 'Rafael Pereira', title: 'Desenvolvedor Full Stack', },
     { name: 'Mia Sotel', title: 'Diretora Criativa' },
-    { name: 'Millan Buzando Diporra', title: 'Web Designer' },
-    { name: 'Tetanic', title: 'Web designer' },
   ];
 
   // Function to render animation based on title
@@ -80,75 +78,6 @@ const AboutUs = () => {
                   <span className="text-gray-500 mr-2">7</span>
                   <span className="text-white">{`}`}</span>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    else if (lowerTitle.includes('web designer') || lowerTitle.includes('designer')) {
-      return (
-        <div className="h-full w-full bg-gradient-to-br from-teal-500 to-emerald-700 flex items-center justify-center overflow-hidden">
-          <div className="relative w-full h-full">
-            {/* Background grid */}
-            <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-20">
-              {[...Array(36)].map((_, i) => (
-                <div key={i} className="border border-white/10"></div>
-              ))}
-            </div>
-
-            {/* Central design elements */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              {/* First circle - clockwise */}
-              <div className="absolute w-64 h-64 border-4 border-dashed border-white/30 rounded-full animate-spin-slow"></div>
-
-              {/* Second circle - counter-clockwise */}
-              <div className="absolute w-48 h-48 border-4 border-dotted border-white/40 rounded-full animate-spin-reverse"></div>
-
-              {/* Central shape */}
-              <div className="relative">
-                {/* Design elements that loop in opposite directions */}
-                <div className="flex gap-6">
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col items-center animate-float"
-                      style={{ animationDelay: `${i * 0.2}s` }}
-                    >
-                      <div className={`w-12 h-12 ${i % 2 === 0 ? 'rounded-lg' : 'rounded-full'} bg-white/20 animate-pulse`}></div>
-                      <div className="mt-2 w-8 h-1 bg-white/40 rounded-full"></div>
-                      <div className="mt-1 w-10 h-1 bg-white/30 rounded-full"></div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Mirrored elements going in reverse */}
-                <div className="flex gap-6 mt-8">
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col items-center animate-float-reverse"
-                      style={{ animationDelay: `${i * 0.2}s` }}
-                    >
-                      <div className="mt-1 w-10 h-1 bg-white/30 rounded-full"></div>
-                      <div className="mt-2 w-8 h-1 bg-white/40 rounded-full"></div>
-                      <div className={`w-12 h-12 ${i % 2 === 0 ? 'rounded-full' : 'rounded-lg'} bg-white/20 animate-pulse`}></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Design tools */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center group">
-                <div className="w-4 h-4 bg-white/60 rounded-sm transform rotate-45 group-hover:rotate-90 transition-all duration-300"></div>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center group">
-                <div className="w-4 h-4 bg-white/60 rounded-full group-hover:rounded-sm transition-all duration-300"></div>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center group">
-                <div className="w-5 h-1 bg-white/60 rounded-full group-hover:w-3 transition-all duration-300"></div>
               </div>
             </div>
           </div>

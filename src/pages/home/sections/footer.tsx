@@ -10,7 +10,7 @@ export default function Footer() {
       <div className='container overflow-hidden'>
         <div className='flex flex-col-reverse gap-4 items-center justify-center md:flex-row md:justify-between'>
           <p className='text-neutral-200'>
-            © 2024 Booreal. Todos os direitos reservados.
+            © 2025 Booreal. Todos os direitos reservados.
           </p>
           <div className='flex gap-4'>
             <a
@@ -20,14 +20,6 @@ export default function Footer() {
               className='text-neutral-400 hover:text-primary transition-colors cursor-pointer'
             >
               Instagram
-            </a>
-            <a
-              href='#'
-              target="_blank"
-              rel="noopener noreferrer"
-              className='text-neutral-400 hover:text-primary transition-colors cursor-pointer'
-            >
-              LinkedIn
             </a>
             <a
               onClick={() => handleWhatsAppRedirect()}

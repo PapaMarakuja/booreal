@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { booreal } from '../../lib/utils';
 
 type Testimonial = {
   quote: string;
@@ -38,8 +39,9 @@ export const AnimatedTestimonials = ({
   }, [autoplay]);
 
   const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
+    return Math.floor(Math.random() * 11) - 5; // Reduzido para -5 a 5 graus
   };
+
   return (
     <div className='px-6 md:px-0 md:max-w-6xl mx-auto antialiased font-sans'>
       <div className='relative grid grid-cols-1 md:grid-cols-2 gap-20'>
@@ -51,28 +53,25 @@ export const AnimatedTestimonials = ({
                   key={testimonial.src}
                   initial={{
                     opacity: 0,
-                    scale: 0.9,
-                    z: -100,
+                    scale: 0.95,
+                    z: -50,
                     rotate: randomRotateY(),
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
-                    scale: isActive(index) ? 1 : 0.95,
-                    z: isActive(index) ? 0 : -100,
+                    scale: isActive(index) ? 1 : 0.97,
+                    z: isActive(index) ? 0 : -50,
                     rotate: isActive(index) ? 0 : randomRotateY(),
                     zIndex: isActive(index) ? 999 : testimonials.length + 2 - index,
-                    y: isActive(index) ? [0, -80, 0] : 0,
+                    y: isActive(index) ? [0, -20, 0] : 0,
                   }}
                   exit={{
                     opacity: 0,
-                    scale: 0.9,
-                    z: 100,
+                    scale: 0.95,
+                    z: 50,
                     rotate: randomRotateY(),
                   }}
-                  transition={{
-                    duration: 0.4,
-                    ease: 'easeInOut',
-                  }}
+                  transition={booreal.transition.softSpring}
                   className='absolute inset-0 origin-bottom'
                 >
                   <img
@@ -94,19 +93,19 @@ export const AnimatedTestimonials = ({
             initial={{
               y: 20,
               opacity: 0,
+              filter: "blur(5px)",
             }}
             animate={{
               y: 0,
               opacity: 1,
+              filter: "blur(0px)",
             }}
             exit={{
               y: -20,
               opacity: 0,
+              filter: "blur(5px)",
             }}
-            transition={{
-              duration: 0.2,
-              ease: 'easeInOut',
-            }}
+            transition={booreal.transition.smooth}
           >
             <h3 className='text-2xl font-bold text-white'>{testimonials[active].name}</h3>
             <p className='text-sm text-neutral-200'>{testimonials[active].designation}</p>
@@ -115,7 +114,7 @@ export const AnimatedTestimonials = ({
                 <motion.span
                   key={index}
                   initial={{
-                    filter: 'blur(10px)',
+                    filter: 'blur(5px)',
                     opacity: 0,
                     y: 5,
                   }}
@@ -125,9 +124,8 @@ export const AnimatedTestimonials = ({
                     y: 0,
                   }}
                   transition={{
-                    duration: 0.2,
-                    ease: 'easeInOut',
-                    delay: 0.02 * index,
+                    ...booreal.transition.smooth,
+                    delay: 0.01 * index,
                   }}
                   className='inline-block'
                 >
@@ -137,24 +135,30 @@ export const AnimatedTestimonials = ({
             </motion.p>
           </motion.div>
           <div className='flex gap-4 pt-12 md:pt-0'>
-            <button
+            <motion.button
               onClick={handlePrev}
               className='h-7 w-7 rounded-full bg-neutral-800 flex items-center justify-center group/button'
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={booreal.transition.spring}
             >
               <FontAwesomeIcon
                 icon={faArrowLeft}
                 className='h-5 w-5 text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300'
               />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={handleNext}
               className='h-7 w-7 rounded-full bg-neutral-800 flex items-center justify-center group/button'
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={booreal.transition.spring}
             >
               <FontAwesomeIcon
                 icon={faArrowRight}
                 className='h-5 w-5 text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300'
               />
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
