@@ -78,3 +78,6 @@ next-env.d.ts
 
 # local netlify folder
 .netlify
+
+# public folder
+/public

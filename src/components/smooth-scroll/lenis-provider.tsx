@@ -14,7 +14,7 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const lenisInstance = new Lenis({
-      duration: 1.125,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       smoothWheel: true,
