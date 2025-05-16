@@ -7,7 +7,6 @@ import { useLocation, useRoutes } from 'react-router-dom';
 import Navbar from './components/navbar/navbar';
 import { firebaseConfig } from './firebase/config';
 import { initializeApp } from "firebase/app";
-import { LenisProvider } from './components/smooth-scroll/lenis-provider';
 
 export default function App() {
   const element = useRoutes([
@@ -28,11 +27,11 @@ export default function App() {
   if (!element) return null;
 
   return (
-    <LenisProvider>
+    <>
       <Navbar />
       <AnimatePresence mode='wait' initial={false}>
         {React.cloneElement(element, { key: location.pathname })}
       </AnimatePresence>
-    </LenisProvider>
+    </>
   );
 }
