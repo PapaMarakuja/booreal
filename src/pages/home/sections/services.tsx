@@ -69,7 +69,7 @@ export default function Services() {
           </div>
         </>
       ),
-      imgSrc: 'images/booreal.png',
+      imgSrc: 'images/booreal2.png',
     },
   ];
 

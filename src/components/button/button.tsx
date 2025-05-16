@@ -10,16 +10,24 @@ export const Button = ({
 }: {
   children: React.ReactNode;
   className?: string;
-  theme?: 'primary' | 'secondary' | 'custom';
+  theme?: 'primary' | 'secondary' | 'white' | 'custom';
 } & ButtonHTMLAttributes<HTMLButtonElement>) => {
   const btnStyles =
     theme === 'primary'
-      ? 'bg-primary/10 border-primary/20 text-primary'
+      ? 'bg-primary/10 border-primary/20 text-primary transition-colors duration-300 hover:bg-primary/20 hover:border-primary/30'
       : theme === 'secondary'
-        ? 'bg-gradient-5/10 border-gradient-5/20 text-gradient-5'
-        : '';
+        ? 'bg-gradient-5/10 border-gradient-5/20 text-gradient-5 transition-colors duration-300 hover:bg-gradient-5/20 hover:border-gradient-5/30'
+        : theme === 'white'
+          ? 'bg-white/10 border-white/20 text-white transition-colors duration-300 hover:bg-white/20 hover:border-white/30'
+          : '';
   const btnBorder =
-    theme === 'primary' ? 'via-primary' : theme === 'secondary' ? 'via-gradient-5' : '';
+    theme === 'primary'
+      ? 'via-primary'
+      : theme === 'secondary'
+        ? 'via-gradient-5'
+        : theme === 'white'
+          ? 'via-white'
+          : '';
 
   return (
     <>
