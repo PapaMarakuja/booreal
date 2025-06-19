@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { cn, variantsScale } from '../../../lib/utils';
 import { motion, useAnimation } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,9 +10,10 @@ import {
   faTasks,
 } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useLenis } from '../../../components/smooth-scroll/lenis-provider';
 
 export default function Process() {
-  const cards = [
+  const steps = [
     {
       title: 'Reunião de Briefing',
       icon: faHandshake as IconProp,
@@ -49,91 +49,100 @@ export default function Process() {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isAnimated, setIsAnimated] = useState(false);
   const controls = useAnimation();
+  const { lenis } = useLenis();
+
+  // Função para verificar se o elemento está visível
+  const checkVisibility = () => {
+    if (!ref.current) return;
+    
+    const elementTop = ref.current.getBoundingClientRect().top;
+    
+    if (elementTop < window.innerHeight - 100) {
+      setIsAnimated(true);
+      controls.start('visible');
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) {
-        return;
-      }
-
-      const elementTop = ref.current.getBoundingClientRect().top;
-
-      if (elementTop < window.innerHeight - 100) {
-        setIsAnimated(true);
-        controls.start('visible');
-      }
+    // Verificar visibilidade inicial
+    checkVisibility();
+    
+    // Usar o evento personalizado do Lenis para atualizar as animações
+    const handleLenisScroll = () => {
+      checkVisibility();
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [controls]);
-
-  const [hovered, setHovered] = useState<number | null>(null);
+    
+    // Adicionar listener para o evento personalizado do Lenis
+    document.addEventListener('lenisscroll', handleLenisScroll);
+    
+    // Manter o listener nativo como fallback
+    window.addEventListener('scroll', handleLenisScroll);
+    
+    return () => {
+      document.removeEventListener('lenisscroll', handleLenisScroll);
+      window.removeEventListener('scroll', handleLenisScroll);
+    };
+  }, [controls, lenis]);
 
   return (
-    <section className='bg-white'>
+    <section id='process' className='bg-gradient-to-b from-white to-gray-100'>
       <div className='container h-full py-[100px]'>
-        <h1 className='text-4xl text-center font-bold mb-[100px] lg:mb-2 text-black'>
+        <h1 className='text-4xl text-center font-bold mb-[50px] text-black'>
           Como trabalhamos em <span className='text-primary'>6</span> passos
         </h1>
-        <p className='hidden lg:block text-center text-neutral-600 mb-[100px]'>
-          Passe o mouse sobre os cards para mais detalhes
-        </p>
 
         <motion.div
-          className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full content-end items-end gap-2'
+          className='flex flex-col gap-8 max-w-3xl mx-auto'
           ref={ref}
           initial='hidden'
           animate={isAnimated ? controls : 'hidden'}
-          variants={variantsScale}
-          transition={{
-            duration: 0.5,
-            type: 'spring',
-            damping: 15,
-            stiffness: 100,
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
           }}
         >
-          {cards.map((card, index) => (
-            <div
+          {steps.map((step, index) => (
+            <motion.div
               key={index}
-              onMouseOver={() => window.innerWidth > 768 && setHovered(index)}
-              onMouseLeave={() => window.innerWidth > 768 && setHovered(null)}
-              className={cn(
-                'flex flex-col justify-start text-black bg-white relative py-8 px-4 min-h-[440px] h-full overflow-hidden transition-all duration-500 rounded-xl',
-                hovered === index && 'text-white h-[110%]'
-              )}
+              className='bg-white rounded-xl shadow-md overflow-hidden border border-gray-100'
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 12,
+                  },
+                },
+              }}
             >
-              <div className='bg-primary/20 z-[2] w-12 h-12 flex justify-center items-center relative rounded-3xl text-[20px]'>
-                <FontAwesomeIcon icon={card.icon as IconProp} />
+              <div className='flex flex-col md:flex-row'>
+                {/* Número do passo */}
+                <div className='w-full md:w-24 flex-shrink-0 bg-gray-50 flex items-center justify-center p-4 md:p-6'>
+                  <span className='text-4xl md:text-5xl font-bold text-primary'>
+                    {index < 9 ? `0${index + 1}` : index + 1}
+                  </span>
+                </div>
+                
+                {/* Conteúdo do passo */}
+                <div className='flex-1 p-6'>
+                  <div className='flex items-center gap-4 mb-3'>
+                    <div className='w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary'>
+                      <FontAwesomeIcon icon={step.icon} size="lg" />
+                    </div>
+                    <h3 className='text-xl font-bold text-gray-900'>{step.title}</h3>
+                  </div>
+                  <p className='text-gray-700'>{step.text}</p>
+                </div>
               </div>
-              <div className='relative z-[2] mt-6'>
-                <h3 className='font-semibold text-3xl'>{card.title}</h3>
-              </div>
-              <div
-                className={cn(
-                  'relative z-[2] overflow-hidden transition-all duration-300 h-full lg:h-0',
-                  hovered === index && 'text-white lg:h-full'
-                )}
-              >
-                <p className='mt-4 mb-6 text-lg font-normal'>{card.text}</p>
-              </div>
-              <div className='absolute flex justify-center items-end top-[0%] bottom-[0%] left-[0%] right-[0%] custom-translate-1'>
-                <div
-                  className={cn(
-                    'bg-black z-[1] rounded-[150px] absolute -bottom-72 w-[300px] h-[300px] custom-translate-2 transition-all duration-500 delay-100',
-                    hovered === index && 'custom-translate-2--hover'
-                  )}
-                ></div>
-                <div
-                  className={cn(
-                    'bg-accent z-0 rounded-[150px] absolute -bottom-72 w-[300px] h-[300px] custom-translate-2 transition-all duration-500',
-                    hovered === index && 'custom-translate-2--hover',
-                    index % 2 == 1 && 'bg-primary'
-                  )}
-                ></div>
-              </div>
-              <div className='border border-neutral-700 absolute inset-0 z-0 rounded-xl'></div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>

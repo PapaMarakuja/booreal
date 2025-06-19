@@ -16,7 +16,6 @@ export function useSmoothScroll() {
 
     window.scrollTo({
       top: offsetPosition,
-      behavior: 'smooth'
     });
   };
 

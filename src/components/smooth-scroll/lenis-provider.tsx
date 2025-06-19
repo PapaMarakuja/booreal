@@ -19,6 +19,15 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
       orientation: 'vertical',
       smoothWheel: true,
     });
+    
+    // Criar um evento personalizado para o scroll do Lenis
+    const onScrollEvent = new Event('lenisscroll');
+    
+    // Adicionar callback ao scroll do Lenis
+    lenisInstance.on('scroll', () => {
+      // Disparar evento personalizado que será usado pelos componentes
+      document.dispatchEvent(onScrollEvent);
+    });
 
     function raf(time: number) {
       lenisInstance.raf(time);

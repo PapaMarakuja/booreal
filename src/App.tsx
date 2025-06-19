@@ -5,7 +5,7 @@ import About from './pages/about/about';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation, useRoutes } from 'react-router-dom';
 import Navbar from './components/navbar/navbar';
-import { firebaseConfig } from './firebase/config';
+import { firebaseConfig } from './firebase/config.ts';
 import { initializeApp } from "firebase/app";
 import { LenisProvider } from './components/smooth-scroll/lenis-provider';
 

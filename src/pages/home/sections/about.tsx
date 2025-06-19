@@ -1,318 +1,157 @@
-import { BentoGrid, BentoGridItem } from '../../../components/ui/bento-grid';
 import { motion } from 'framer-motion';
-import { cn } from '../../../lib/utils';
-import { AngularIcon } from '../../../components/icons/angular-icon';
-import { ReactIcon } from '../../../components/icons/react-icon';
-import { TailwindIcon } from '../../../components/icons/tailwindIcon';
+import { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { 
+  faRocket, 
+  faBullseye, 
+  faEye, 
+  faGem, 
+  faSync, 
+  faStar,
+  faHandshake
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function About() {
-  return (
-    <section className='bg-white'>
-      <div className='container h-full py-[100px]'>
-        <h1 className='text-4xl text-center font-bold mb-[100px] text-neutral-900'>
-          O que faz <span className='text-primary'>Booreal</span> especial
-        </h1>
+  const containerRef = useRef(null);
 
-        <BentoGrid className='mx-auto md:auto-rows-[20rem]'>
-          {items.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              className={cn('[&>p:text-lg]', item.className)}
-              icon={item.icon}
-            />
-          ))}
-        </BentoGrid>
-      </div>
-    </section>
-  );
-}
+  // Dados dos cards
+  const aboutCards = [
+    {
+      title: 'Nossa História',
+      content: 'Fundada em 2020, a Booreal nasceu da visão de criar soluções digitais que realmente fazem diferença. Começamos como uma pequena equipe de desenvolvedores apaixonados e crescemos mantendo essa mesma paixão pela inovação.',
+      icon: faRocket,
+      color: 'from-blue-500/10 to-purple-500/10'
+    },
+    {
+      title: 'Nossa Missão',
+      content: 'Transformar ideias em soluções digitais inovadoras que impulsionam o sucesso dos nossos clientes, combinando tecnologia de ponta com design excepcional.',
+      icon: faBullseye,
+      color: 'from-purple-500/10 to-pink-500/10'
+    },
+    {
+      title: 'Nossa Visão',
+      content: 'Ser reconhecida como referência em desenvolvimento de soluções digitais, criando produtos que não apenas atendem, mas superam as expectativas dos nossos clientes.',
+      icon: faEye,
+      color: 'from-pink-500/10 to-orange-500/10'
+    },
+    {
+      title: 'Nossos Valores',
+      content: 'Inovação, qualidade, transparência e compromisso são os pilares que sustentam cada projeto que realizamos, garantindo resultados excepcionais.',
+      icon: faGem,
+      color: 'from-orange-500/10 to-yellow-500/10'
+    },
+    {
+      title: 'Nossa Abordagem',
+      content: 'Adotamos metodologias ágeis e processos eficientes para entregar soluções personalizadas que realmente resolvem os desafios específicos de cada cliente.',
+      icon: faSync,
+      color: 'from-yellow-500/10 to-green-500/10'
+    },
+    {
+      title: 'Nosso Diferencial',
+      content: 'Combinamos expertise técnica com visão estratégica para criar produtos digitais que se destacam pela qualidade, desempenho e experiência do usuário excepcional.',
+      icon: faStar,
+      color: 'from-green-500/10 to-blue-500/10'
+    },
+  ];
 
-const SkeletonOne = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // Variantes de animação
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left - rect.width / 2;
-    const mouseY = event.clientY - rect.top - rect.height / 2;
-    setMousePosition({ x: mouseX * 0.1, y: mouseY * 0.1 });
+  const cardVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 12,
+      },
+    },
   };
 
   return (
-    <div
-      className='flex space-x-4 justify-center items-center w-full h-64 bg-dot-thick-black/20'
-      onMouseMove={handleMouseMove}
-    >
-      {/* Olho esquerdo */}
-      <div className='relative w-16 h-16 bg-white rounded-full flex justify-center items-center border-2 border-gray-600'>
+    <div className="bg-white min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black">
+            Sobre a <span className="text-primary">Booreal</span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+            Conheça mais sobre nossa empresa, nossa história e o que nos motiva a criar soluções digitais excepcionais.
+          </p>
+        </motion.div>
+
         <motion.div
-          className='w-6 h-6 bg-black rounded-full'
-          style={{
-            x: mousePosition.x,
-            y: mousePosition.y,
-          }}
-        />
-      </div>
-      {/* Olho direito */}
-      <div className='relative w-16 h-16 bg-white rounded-full flex justify-center items-center border-2 border-gray-600'>
-        <motion.div
-          className='w-6 h-6 bg-black rounded-full'
-          style={{
-            x: mousePosition.x,
-            y: mousePosition.y,
-          }}
-        />
+          ref={containerRef}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {aboutCards.map((card, index) => (
+            <motion.div
+              key={index}
+              variants={cardVariants}
+              whileHover={{ y: -10, transition: { duration: 0.2 } }}
+              className={`bg-gradient-to-br ${card.color} backdrop-blur-sm border border-gray-200 hover:border-primary/20 p-8 rounded-xl shadow-sm transition-all duration-300`}
+            >
+              <div className="flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6 text-primary">
+                <FontAwesomeIcon icon={card.icon} size="lg" />
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-gray-900">{card.title}</h3>
+              <p className="text-gray-700">{card.content}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <motion.div 
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="bg-gradient-to-br from-primary/5 to-accent/5 border border-gray-200 p-8 md:p-12 rounded-2xl shadow-sm"
+          >
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+              <div className="flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full text-primary flex-shrink-0">
+                <FontAwesomeIcon icon={faHandshake} size="2x" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">Prontos para enfrentar cada desafio</h3>
+                <p className="text-gray-700 text-lg mb-6">
+                  Na Booreal, estamos sempre disponíveis para transformar suas ideias em realidade. Nossa equipe está preparada para enfrentar qualquer desafio com criatividade e excelência técnica, garantindo que cada projeto seja entregue com a máxima qualidade e que nossos clientes fiquem sempre satisfeitos com os resultados.
+                </p>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+                >
+                  Fale Conosco
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
-};
-
-const SkeletonTwo = () => {
-  const variants = {
-    initial: {
-      width: 0,
-    },
-    animate: {
-      width: '100%',
-      transition: {
-        duration: 0.2,
-      },
-    },
-    hover: {
-      width: ['0%', '100%'],
-      transition: {
-        duration: 2,
-      },
-    },
-  };
-  const arr = new Array(6).fill(0);
-  return (
-    <motion.div
-      initial='initial'
-      animate='animate'
-      whileHover='hover'
-      whileTap='hover'
-      className='flex flex-1 w-full h-full min-h-[6rem] bg-dot-thick-black/20 flex-col space-y-2'
-    >
-      {arr.map((_, i) => (
-        <motion.div
-          key={'skelenton-two' + i}
-          variants={variants}
-          style={{
-            maxWidth: Math.random() * (100 - 40) + 40 + '%',
-          }}
-          className='flex flex-row rounded-full border border-white/[0.2] p-2  items-center space-x-2 bg-black w-full h-4'
-        ></motion.div>
-      ))}
-    </motion.div>
-  );
-};
-
-const SkeletonThree = () => {
-  const first = {
-    initial: {
-      y: 0,
-      rotate: 0,
-    },
-    hover: {
-      y: 0,
-      rotate: -5,
-    },
-  };
-
-  return (
-    <motion.div
-      className='flex flex-1 w-full h-full min-h-[6rem] bg-dot-thick-black/20 rounded-lg flex-col space-y-2'
-      initial='initial'
-      animate='animate'
-      whileTap='hover'
-      whileHover='hover'
-    >
-      <motion.div
-        variants={first}
-        className='m-4 h-full w-auto rounded-lg animated-gradient-shift'
-        whileHover={{ scale: 1.05, rotate: 5 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      />
-    </motion.div>
-  );
-};
-
-const SkeletonFour = () => {
-  const first = {
-    initial: {
-      x: 0,
-      rotate: 0,
-    },
-    hover: {
-      x: 20,
-      rotate: -5,
-    },
-  };
-  const second = {
-    initial: {
-      x: 0,
-      rotate: 0,
-    },
-    hover: {
-      x: -20,
-      rotate: 5,
-    },
-  };
-  return (
-    <motion.div
-      initial='initial'
-      animate='animate'
-      whileTap='hover'
-      whileHover='hover'
-      className='flex flex-1 w-full h-full min-h-[6rem] bg-dot-thick-black/20 flex-row space-x-2'
-    >
-      <motion.div
-        variants={first}
-        className='h-full w-1/3 rounded-2xl p-4 bg-neutral-100/50 border-angular-dark-red border-2 flex flex-col items-center justify-center'
-      >
-        <div className='relative flex items-center justify-center p-1 rounded-lg bg-angular-gradient max-w-[8rem] max-h-[8rem] w-full h-full'>
-          <div className='flex items-center justify-center w-full h-full'>
-            <AngularIcon className='w-full h-full bg-neutral-100 rounded' />
-          </div>
-        </div>
-        <p className='border border-angular-red bg-angular-red/20 text-angular-dark-red text-sm rounded-full px-2 py-0.5 mt-4'>
-          Angular
-        </p>
-      </motion.div>
-      <motion.div className='h-full relative z-20 w-1/3 rounded-2xl p-4 bg-neutral-100/50 border-react-dark-blue border-2 flex flex-col items-center justify-center'>
-        <div className='relative flex items-center justify-center p-1 rounded-lg bg-gradient-to-r from-react-light-blue via-react-dark-blue to-react-light-blue max-w-[8rem] max-h-[8rem] w-full h-full'>
-          <div className='flex items-center justify-center w-full h-full'>
-            <ReactIcon className='w-full h-full bg-neutral-100 rounded' />
-          </div>
-        </div>
-        <p className='border border-react-light-blue bg-react-light-blue/20 text-react-dark-blue text-sm rounded-full px-2 py-0.5 mt-4'>
-          React
-        </p>
-      </motion.div>
-      <motion.div
-        variants={second}
-        className='h-full w-1/3 rounded-2xl p-4 bg-neutral-100/50 border-tailwind-blue border-2 flex flex-col items-center justify-center'
-      >
-        <div className='relative flex items-center justify-center p-1 rounded-lg bg-gradient-to-r from-tailwind-teal via-tailwind-blue to-tailwind-teal max-w-[8rem] max-h-[8rem] w-full h-full'>
-          <div className='flex items-center justify-center w-full h-full'>
-            <TailwindIcon className='w-full h-full bg-neutral-100 rounded' />
-          </div>
-        </div>
-        <p className='border border-tailwind-teal bg-tailwind-teal/20 text-tailwind-blue text-sm rounded-full px-2 py-0.5 mt-4'>
-          Tailwind
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-};
-const SkeletonFive = () => {
-  const variants = {
-    initial: {
-      x: 0,
-    },
-    animate: {
-      x: 10,
-      rotate: 5,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
-  const variantsSecond = {
-    initial: {
-      x: 0,
-    },
-    animate: {
-      x: -10,
-      rotate: -5,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
-
-  return (
-    <motion.div
-      initial='initial'
-      whileHover='animate'
-      whileTap='animate'
-      className='flex flex-1 w-full h-full min-h-[6rem] bg-dot-thick-black/20 flex-col space-y-2'
-    >
-      <motion.div
-        variants={variants}
-        className='flex flex-row rounded-2xl border border-white/[0.2] p-2  items-start space-x-2 bg-black'
-      >
-        <div className='h-10 w-10 rounded-full bg-gradient-to-r from-primary to-gradient-3 flex-shrink-0 grid place-items-center'>
-          <FontAwesomeIcon icon={faUserAlt} />
-        </div>
-        <p className='text-xs text-neutral-300'>
-          Quero um site mágico que transforme visitantes em clientes fiéis.
-        </p>
-      </motion.div>
-      <motion.div
-        variants={variantsSecond}
-        className='flex flex-row rounded-full border border-white/[0.2] p-2 items-center justify-end space-x-2 w-5/6 ml-auto bg-black'
-      >
-        <p className='text-xs text-neutral-300 text-right'>
-          Vamos tornar esse sonho realidade juntos!
-        </p>
-        <div className='h-6 w-6 rounded-full bg-gradient-to-r from-gradient-5 to-accent flex-shrink-0' />
-      </motion.div>
-      <motion.div
-        variants={variants}
-        className='flex flex-row rounded-2xl border border-white/[0.2] p-2  items-start space-x-2 bg-black'
-      >
-        <div className='h-10 w-10 rounded-full bg-gradient-to-r from-primary to-gradient-3 flex-shrink-0 grid place-items-center'>
-          <FontAwesomeIcon icon={faUserAlt} />
-        </div>
-        <p className='text-xs text-neutral-300'>
-          Mal posso esperar para ver minha marca ganhando vida!
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-};
-const items = [
-  {
-    title: 'Nossas Competências',
-    description: <span className='text-sm'>Quebramos as regras, mas dominamos o jogo.</span>,
-    header: <SkeletonFour />,
-    className: 'md:col-span-2',
-    icon: '',
-  },
-  {
-    title: 'Nossa Visão',
-    description: <span className='text-sm'>Ferramentas não fazem milagre, mas a gente faz.</span>,
-    header: <SkeletonOne />,
-    className: 'md:col-span-1',
-    icon: '',
-  },
-  {
-    title: 'Nossa Filosofia',
-    description: <span className='text-sm'>Criar sem medo. Dominar sem pedir licença.</span>,
-    header: <SkeletonTwo />,
-    className: 'md:col-span-1',
-    icon: '',
-  },
-  {
-    title: 'O Método',
-    description: <span className='text-sm'>Criatividade sem frescura, resultado sem enrolação.</span>,
-    header: <SkeletonThree />,
-    className: 'md:col-span-1',
-    icon: '',
-  },
-  {
-    title: 'A Conversão',
-    description: <span className='text-sm'>Cliques são fáceis. Transformamos em resultados.</span>,
-    header: <SkeletonFive />,
-    className: 'md:col-span-1',
-    icon: '',
-  },
-];
-
+}
